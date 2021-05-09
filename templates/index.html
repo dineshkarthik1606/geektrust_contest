@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin App!! </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+    <meta name="description" content="Bootstrap.">  
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Admin controller page
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+            <div class="container">
+                    <div class="columns">
+                        <div class="column is-offset-4 is-4">
+            <form action="search">
+                    <input name="search" type="text" placeholder="Search" size="30" value="{{ request.form.search}}" required />
+                    <button class="btn btn-primary">Go</button>
+                </form>
+                </div>
+                </div>
+                </div>
+                
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    {% for data in colors.items %}
+                    <div class="box">
+                        <article class="media">                            
+                            <div class="media-content">
+                                <div class="content",id="mycontent">
+                                    <p>
+                                        <input type="checkbox" value="21" name="mycheckbox" class="checkthis" />
+                                        <span class="title">{{ data.name }}</span>
+                                        <a href="/delete/{{data.id}}"><i class="fa fa-trash"></i></a>
+                                        <a href="/update/{{data.id}}"><i class="fa fa-edit"></i></a>
+                                        <br>
+                                        <span class="subtitle">{{ data.email }}</span>
+                                        <br> {{ data.role }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Pagination Links-->
+<div class="text-center">
+    <a href="{{ url_for('colors', page=colors.prev_num) }}"
+       class="btn btn-outline-dark 
+       {% if colors.page == 1 %}disabled{% endif %}">
+        &laquo;
+    </a>
+<!-- Loop through the number of pages to display a link for each-->
+    {% for page_num in colors.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+<!-- Check for the active page and set the link to "Active"-->
+            {% if colors.page == page_num %}
+            <a href="{{ url_for('colors', page=page_num) }}"
+               class="btn btn-dark">
+                {{ page_num }}
+            </a>
+            {% else %}
+            <a href="{{ url_for('colors', page=page_num) }}"
+               class="btn btn-outline-dark">
+                {{ page_num }}
+            </a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('colors', page=colors.next_num) }}"
+       class="btn btn-outline-dark 
+       {% if colors.page == colors.pages %}disabled{% endif %}">
+        &raquo;
+    </a>
+</div>
+<input type="submit" value="Delete All Selected"  class="btn btn-primary">  
+  <br/>
+  {% if msg %}
+  <div class="alert alert-danger" role="alert">{{ msg }}</div>
+  {% endif %}
+<p class="text-center mt-3">
+   Showing page {{ colors.page }} of {{ colors.pages }}
+</p>
+
+    <footer class="footer">
+    </footer>
+    <script>
+            $(document).ready(function(){
+            $("#mytable #checkall").click(function () {
+                    if ($("#mytable #checkall").is(':checked')) {
+                        $("#mytable input[type=checkbox]").each(function () {
+                            $(this).prop("checked", true);
+                        });
+             
+                    } else {
+                        $("#mytable input[type=checkbox]").each(function () {
+                            $(this).prop("checked", false);
+                        });
+                    }
+                });
+                 
+                $("[data-toggle=tooltip]").tooltip();
+            });
+             
+            </script>  
+
+</body>
+
+
+</html>

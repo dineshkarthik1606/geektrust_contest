@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>Admin App!! </title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+                <meta name="description" content="Bootstrap.">  
+                <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+                <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+                <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            </head>
+<body>
+        <section class="hero is-primary">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">
+                            Admin controller page
+                        </h1>
+                    </div>
+                </div>
+            </section>            
+        <section class="section">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column is-offset-4 is-4">   
+                                {% for data in result %}                         
+                            <div class="box">
+                                <article class="media">                            
+                                    <div class="media-content">
+                                        <div class="content",id="mycontent">
+                                            <p>
+                                                <span class="title">{{ data['name'].decode("utf-8") }}</span>
+                                                <a href="/delete/{{result['id']}}">Delete</a>
+                                                <a href="/update/{{result['id']}}">Update</a>
+                                                <br>
+                                                <span class="subtitle">{{ data['email'].decode("utf-8") }}</span>
+                                                <br> {{ data['role'].decode("utf-8") }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>    
+                            {% endfor %}                        
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+</body>
+
+    
+
+</html>
